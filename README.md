@@ -49,14 +49,6 @@ Analyzed whether LOS predictions are **over- or under-predicted** across:
 
 ---
 
-## 👥 Teamwork & Contribution
-- Data Preprocessing & EDA – *Aastha*  
-- Model Development – *Aastha*  
-- Explainability – *Anuthya*  
-- Cost Analysis – *Anuthya*  
-
----
-
 ## 📌 Tech Stack
 - **Language:** Python  
 - **Libraries:** scikit-learn, XGBoost, Pandas, NumPy, Matplotlib, Seaborn, SHAP  
