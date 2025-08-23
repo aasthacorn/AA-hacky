@@ -22,9 +22,6 @@ The approach and methology for the analysis begins with exploratory data analysi
   - ✅ Random Forest  
   - ✅ AdaBoost  
   - ✅ Gradient Boosting  
-  - ✅ K-Nearest Neighbor  
-
-**Metrics:** Accuracy, Balanced Accuracy, Weighted F1-score
 
 ### 3. Explainability
 - Used **feature importance** and **SHAP values** to interpret predictions  
@@ -32,27 +29,64 @@ The approach and methology for the analysis begins with exploratory data analysi
 
 ---
 
-## 💰 Cost Estimation
-Predicted LOS is translated into **estimated patient cost** using a **cost-per-day schedule**:  
-- Different **daily rates per department**  
-- Adjusted by **severity level**  
-- Provides transparency in billing  
-
----
-
-## 📈 Fairness Check
-Analyzed whether LOS predictions are **over- or under-predicted** across:  
-- Age groups  
-- Illness severity categories  
-
-👉 In case of bias, models can be retrained with **re-sampling, re-weighting, or fairness constraints**.  
-
----
-
 ## 📌 Tech Stack
 - **Language:** Python  
 - **Libraries:** scikit-learn, XGBoost, Pandas, NumPy, Matplotlib, Seaborn, SHAP  
 - **Tools:** Jupyter Notebook 
+---
+
+## 🧠 Solution for 1: LOS Prediction Model
+
+We framed the task as a multi-class classification problem with Stay_Days as the target.
+
+Approach: Preprocessed patient + hospital features → trained ML models (Random Forest / XGBoost).
+
+Why Multi-class: LOS is categorical (e.g., 0–10, 11–20, … days).
+
+Evaluation: Accuracy, F1-score, confusion matrix.
+
+Explainability: SHAP + feature importance to show which factors (age, severity, department, etc.) matter most.
+
+✅ Outcome: Predicts LOS at admission, enabling proactive resource allocation.
+
+
+
+## 💰 Solution for 2: Cost Estimation
+
+We converted LOS predictions into estimated treatment costs using a cost-per-day schedule (INR).
+
+Assumptions: Daily rates vary by department (ICU > General Ward) and severity (Mild < Severe).
+
+Formula:
+
+Estimated Cost = Predicted LOS (days) × Daily_Rate(dept, severity)
+
+
+Example: ICU + Severe case → 15 days × ₹10,000/day = ₹1,50,000.
+
+✅ Outcome: Early cost transparency for patients + better hospital financial planning.
+
+
+
+## 🔎 Solution for 3: Error Analysis (Over/Under Prediction)
+
+Our model sometimes under-predicts LOS for elderly (65+) & severe cases, and over-predicts for moderate ones.
+
+Risk of Under-Prediction → Bed shortages, staff overload, patient care issues.
+
+Risk of Over-Prediction → Wasted resources, blocked admissions.
+
+🛠️ Mitigation
+
+Add buffer days for elderly & high-severity patients.
+
+Use cost-sensitive training (penalize under-prediction more).
+
+Build dashboards to monitor subgroup errors.
+
+Keep a human-in-the-loop for critical patients.
+
+✅ Takeaway: Reduces bias & ensures safer, more efficient hospital operations.
 ---
 
 ✨ *This project demonstrates how AI can make healthcare more efficient, transparent, and fair.*  
